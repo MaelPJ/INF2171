@@ -1,25 +1,40 @@
 BR main
 
-message: .ASCII "Saisissez un numÈro de carte de crÈdit ‡ valider de 8 chiffres.\x00"
+message: .ASCII "Saisissez un num√©ro de carte de cr√©dit √† valider de 8 chiffres.\x00"
+msgcarte: .ASCII "Le num√©ro de la carte √† valider: \x00" 
 msg_err: .ASCII "Le chiffre n'est pas valide\x00" 
-msg_val: .ASCII "RÈsultat de l'Ètape 3:La carte est valide\x00" 
-msg_inva: .ASCII "RÈsultat de l'Ètape 3:La carte est invalide\x00" 
+msg_val: .ASCII "R√©sultat de l'√©tape 3:La carte est valide\x00" 
+msg_inva: .ASCII "R√©sultat de l'√©tape 3:La carte est invalide\x00" 
 FINLIGNE: .EQUATE 0x000A
 
-numero1: .BLOCK 1
-numero2: .BLOCK 1
-numero3: .BLOCK 1
-numero4: .BLOCK 1
-numero5: .BLOCK 1
-numero6: .BLOCK 1
-numero7: .BLOCK 1
-numero8: .BLOCK 1
+numero1: .BLOCK 8
+numero2: .BLOCK 8
+numero3: .BLOCK 8
+numero4: .BLOCK 8
+numero5: .BLOCK 8
+numero6: .BLOCK 8
+numero7: .BLOCK 8
+numero8: .BLOCK 8
 
 
-main: STRO message,d
-      CHARO FINLIGNE,i 
-      DECI numero, d
-
-      DECO numero, d
+main: STRO message, d
+      CHARO FINLIGNE, i 
+      DECI numero1, d
+      DECI numero2, d
+      DECI numero3, d
+      DECI numero4, d
+      DECI numero5, d
+      DECI numero6, d
+      DECI numero7, d
+      DECI numero8, d
+      STRO msgcarte, d
+      DECO numero1, d
+      DECO numero2, d
+      DECO numero3, d
+      DECO numero4, d
+      DECO numero5, d
+      DECO numero6, d
+      DECO numero7, d
+      DECO numero8, d
 STOP
 .END
