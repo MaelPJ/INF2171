@@ -60,14 +60,10 @@ FINLIGNE: .EQUATE 0x000A
 
 
 numero1: .BLOCK 8
-
-
-
-num1_2: .BLOCK 8
-
-
-
+num1_2: .BLOCK 8 ; variable 2e étape de validation
+num1d10: .BLOCK 8
 numero2: .BLOCK 8
+
 
 
 
@@ -107,8 +103,13 @@ numero8: .BLOCK 8
 
 
 
-somme: .WORD 0
+somme: .WORD 0 ; 1e validation
+somme2: .WORD 0 ; 2e validation
 
+somme1: .WORD 0
+somme3: .WORD 0
+somme5: .WORD 0
+somme7: .WORD 0
 
 
 
@@ -379,14 +380,6 @@ STA num1_2, d
 
 
 
-CHARO FINLIGNE, i
-
-
-
-DECO num1_2, d
-
-
-
 LDA 0, d ; balayage de l'accumulateur
 
 
@@ -400,14 +393,6 @@ ASLA
 
 
 STA num3_2, d
-
-
-
-CHARO FINLIGNE, i
-
-
-
-DECO num3_2, d
 
 
 
@@ -426,15 +411,6 @@ ASLA
 STA num5_2, d
 
 
-
-CHARO FINLIGNE, i
-
-
-
-DECO num5_2, d
-
-
-
 LDA 0, d ; balayage de l'accumulateur
 
 
@@ -448,23 +424,53 @@ ASLA
 
 
 STA num7_2, d
-
-
-
-CHARO FINLIGNE, i
-
-
-
-DECO num7_2, d
-
-
-
-
-
-
-
-STOP
-
-
-
+; algorithme pour la deuxième étape de vérification
+LDA 0, d
+LDA num1_2, d ; ajout du 1e nombre à l'accumulateur
+CPA 10, i
+BRGE Ajout1 ; ajout de 1 à somme1
+LDA somme1, d
+ADDA num1_2, d
+STA somme1, d
+BR Fin1 
+Ajout1: SUBA 9, i
+STA somme1, d
+Fin1:LDA num3_2, d ; ajout du 2e nombre à l'accumulateur
+CPA 10, i
+BRGE Ajout3 ; ajout de 1 à somme3
+LDA somme3, d
+ADDA num3_2, d
+STA somme3, d
+BR Fin3
+Ajout3: SUBA 9, i
+STA somme3, d
+Fin3:LDA num5_2, d ; ajout du 3e nombre à l'accumulateur
+CPA 10, i
+BRGE Ajout5 ; ajout de 1 à somme5
+LDA somme5, d
+ADDA num5_2, d
+STA somme5, d
+BR Fin5
+Ajout5: SUBA 9, i
+STA somme5, d
+Fin5:LDA num7_2, d ; ajout du 4e nombre à l'accumulateur
+CPA 10, i
+BRGE Ajout7 ; ajout de 1 à somme7
+LDA somme7, d
+ADDA num7_2, d
+STA somme7, d
+BR Fin7 
+Ajout7: SUBA 9, i
+STA somme7, d
+Fin7:LDA 0, i
+LDA somme2, d ; sommation de la 2e etape
+ADDA somme1, d
+ADDA somme3, d
+ADDA somme5, d
+ADDA somme7, d
+STA somme2, d ; rangement de la somme dans somme2
+CHARO FINLIGNE,i  
+STRO msgres2, d
+DECO somme2, d
+STOP 
 .END
