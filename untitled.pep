@@ -1,7 +1,10 @@
 BR main
 
 message: .ASCII "Saisissez un numéro de carte de crédit à valider de 8 chiffres.\x00"
-msgcarte: .ASCII "Le numéro de la carte à valider: \x00" 
+message2: .ASCII "Un chiffre à la fois, SVP.\x00"
+msgcarte: .ASCII "Le numéro de la carte à valider:\x00" 
+msgres1: .ASCII "Résultat de l'étape 1:\x00"
+msgres2: .ASCII "Résultat de l'étape 2: \x00"
 msg_err: .ASCII "Le chiffre n'est pas valide\x00" 
 msg_val: .ASCII "Résultat de l'étape 3:La carte est valide\x00" 
 msg_inva: .ASCII "Résultat de l'étape 3:La carte est invalide\x00" 
@@ -15,10 +18,13 @@ numero5: .BLOCK 8
 numero6: .BLOCK 8
 numero7: .BLOCK 8
 numero8: .BLOCK 8
+somme: .WORD 0
 
 
 main: STRO message, d
       CHARO FINLIGNE, i 
+      STRO message2, d
+      CHARO FINLIGNE, i
       DECI numero1, d
       DECI numero2, d
       DECI numero3, d
@@ -36,5 +42,14 @@ main: STRO message, d
       DECO numero6, d
       DECO numero7, d
       DECO numero8, d
+      LDA somme, d
+      ADDA numero2, d
+      ADDA numero4, d
+      ADDA numero6, d
+      ADDA numero8, d
+      STA somme, d
+      CHARO FINLIGNE, i
+      STRO msgres1, d
+      DECO somme, d
 STOP
 .END
