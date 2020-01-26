@@ -11,12 +11,16 @@ msg_inva: .ASCII "Résultat de l'étape 3:La carte est invalide\x00"
 FINLIGNE: .EQUATE 0x000A
 
 numero1: .BLOCK 8
+num1_2: .BLOCK 8
 numero2: .BLOCK 8
 numero3: .BLOCK 8
+num3_2: .BLOCK 8
 numero4: .BLOCK 8
 numero5: .BLOCK 8
+num5_2: .BLOCK 8
 numero6: .BLOCK 8
 numero7: .BLOCK 8
+num7_2: .BLOCK 8
 numero8: .BLOCK 8
 somme: .WORD 0
 
@@ -25,7 +29,7 @@ main: STRO message, d
       CHARO FINLIGNE, i 
       STRO message2, d
       CHARO FINLIGNE, i
-      DECI numero1, d
+      DECI numero1, d ; entree numero carte
       DECI numero2, d
       DECI numero3, d
       DECI numero4, d
@@ -50,6 +54,31 @@ main: STRO message, d
       STA somme, d
       CHARO FINLIGNE, i
       STRO msgres1, d
-      DECO somme, d
+      DECO somme, d ; verification etape 1
+      LDA 0, d ; balayage de l'accumulateur
+      LDA numero1, d
+      ASLA
+      STA num1_2, d
+      CHARO FINLIGNE, i
+      DECO num1_2, d
+      LDA 0, d ; balayage de l'accumulateur
+      LDA numero3, d
+      ASLA
+      STA num3_2, d
+      CHARO FINLIGNE, i
+      DECO num3_2, d
+      LDA 0, d ; balayage de l'accumulateur
+      LDA numero5, d
+      ASLA
+      STA num5_2, d
+      CHARO FINLIGNE, i
+      DECO num5_2, d
+      LDA 0, d ; balayage de l'accumulateur
+      LDA numero7, d
+      ASLA
+      STA num7_2, d
+      CHARO FINLIGNE, i
+      DECO num7_2, d
+      
 STOP
 .END
