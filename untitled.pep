@@ -1,4 +1,13 @@
 
+; Programme qui valide les huits chiffres d'un numero de carte de credit,
+; qui doit tous etres des chiffres decimals entre 0 et 9, à l'exception du
+; chiffre le plus significatif qui doit être supérieur à 0 et vérifie si la
+; la somme totale de  la somme de chaque chiffre en position impaire en commençant 
+; à partir du chiffre le moins significatif plus la somme des chiffres contenu dans les
+; nombres résultant de la multiplication par deux des chiffres de la carte restant est
+; un multiple de 10. Si tel est le cas, le numéro de la carte est validé.
+; 11 février 2020, Maël Pilon-Joly, peops_finding911@hotmail.com, PILM04049303 
+
 BR main
 
 
