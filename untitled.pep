@@ -35,7 +35,7 @@ msgres1: .ASCII "Résultat de l'étape 1:\x00"
 
 
 
-msgres2: .ASCII "Résultat de l'étape 2: \x00"
+msgres2: .ASCII "Résultat de l'étape 2:\x00"
 
 
 
@@ -59,15 +59,15 @@ FINLIGNE: .EQUATE 0x000A
 
 
 
-numero1: .BLOCK 8
+numero1: .BLOCK 10
 num1_2: .BLOCK 8 ; variable 2e étape de validation
 num1d10: .BLOCK 8
-numero2: .BLOCK 8
+numero2: .BLOCK 10
 
 
 
 
-numero3: .BLOCK 8
+numero3: .BLOCK 10
 
 
 
@@ -111,6 +111,7 @@ somme3: .WORD 0
 somme5: .WORD 0
 somme7: .WORD 0
 
+smet3: .WORD 0
 
 
 
@@ -472,5 +473,30 @@ STA somme2, d ; rangement de la somme dans somme2
 CHARO FINLIGNE,i  
 STRO msgres2, d
 DECO somme2, d
-STOP 
+; algorithme de validation de la troisieme etape 
+CHARO FINLIGNE,i   
+LDA smet3, d
+ADDA somme, d
+ADDA somme2, d
+STA smet3, d 
+LDA smet3,d
+CPA 10, i ; comparaison avec 10
+BREQ X
+CPA 20, i
+BREQ X
+CPA 30, i
+BREQ X
+CPA 40, i; comparaison avec 40
+BREQ X
+CPA 50, i
+BREQ X
+CPA 60, i
+BREQ X
+CPA 70, i
+BREQ X
+BR Y
+X: STRO msg_val, d 
+STOP
+Y: STRO msg_inva, d
+STOP
 .END
